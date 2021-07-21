@@ -16,8 +16,6 @@
 # if X = {1, 3, 5}, you could climb 1, 3, or 5 steps at a time.
 #######################################################################################
 
-n = 3
-
 
 #method to find out how to climb the steps
 #1 or 2 at a time
@@ -58,4 +56,23 @@ def factorial(fact):
 
     return value
 
+
+#this method provided by dailycodingproblems.com
+#handles general case given an X set of integers
+#uses fibonacci sequence
+def staircase(n, X):
+    cache = [0 for _ in range(n + 1)] #instantiate cache of size range
+    cache[0] = 1 #set the first cache value to 1
+    for i in range(1, n + 1): #iterate through all i's within the range of n
+        #sum the cache value held before current cache element
+        #with any number x in the set of X integers as long as said x
+        #is not larger than the current i
+        cache[i] += sum(cache[i - x] for x in X if i - x >= 0)
+    return cache[n] #return the final value at element n
+                    #which will be the number of combinations according to
+                    #the fibonacci sequence
+n = 10
+X = [1,3,5]
 print(simpleclimb(n))
+
+print(staircase(n,X))
